@@ -1,0 +1,76 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/home/home",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"app-plus": {
+					"titleNView": false // 禁用原生导航栏
+				},
+				"enablePullDownRefresh": true //开启该页面下拉刷新
+			}
+		}, {
+			"path": "pages/video/video",
+			"style": {
+				"navigationBarTitleText": "西瓜视频",
+				"app-plus": {
+					"titleNView": false // 禁用原生导航栏
+				},
+				"enablePullDownRefresh": true //开启该页面下拉刷新
+			}
+		}, {
+			"path": "pages/movie/movie",
+			"style": {
+				"navigationBarTitleText": "放映厅",
+				"app-plus": {
+					"titleNView": false // 禁用原生导航栏
+				},
+				"enablePullDownRefresh": true //开启该页面下拉刷新
+			}
+		}, {
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"app-plus": {
+					"titleNView": false // 禁用原生导航栏
+				},
+				"enablePullDownRefresh": true //开启该页面下拉刷新
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#8a8a8a",
+		"selectedColor": "#ff553f",
+		"list": [{
+				"pagePath": "pages/home/home",
+				"iconPath": "static/image/tabbar/home.png",
+				"selectedIconPath": "static/image/tabbar/home-sel.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/video/video",
+				"iconPath": "static/image/tabbar/video.png",
+				"selectedIconPath": "static/image/tabbar/video-sel.png",
+				"text": "西瓜视频"
+			},
+			{
+				"pagePath": "pages/movie/movie",
+				"iconPath": "static/image/tabbar/movie.png",
+				"selectedIconPath": "static/image/tabbar/movie-sel.png",
+				"text": "放映厅"
+			},
+			{
+				"pagePath": "pages/user/user",
+				"iconPath": "static/image/tabbar/user.png",
+				"selectedIconPath": "static/image/tabbar/user-sel.png",
+				"text": "我的"
+			}
+		]
+	}
+}
