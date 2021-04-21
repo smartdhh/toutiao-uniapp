@@ -1,11 +1,42 @@
 <script>
 	export default {
-		onLaunch: function() {},
+		onLaunch: function() {
+			uni.getSystemInfo({
+				success(e) {}
+			});
+		},
 		onShow: function() {},
 		onHide: function() {}
 	}
 </script>
 
-<style>
-	/*每个页面公共css */
+<style lang="scss">
+	/* 此处在app中可能会有问题，需要引入https:// */
+	@import "./static/css/iconfont.css";
+
+	* {
+		box-sizing: border-box;
+	}
+
+	.page {
+		padding: 180upx 30upx 20upx;
+		//#ifdef  APP-PLUS
+		padding-top: 230upx;
+		//#ifdef
+	}
+
+	.flex-between {
+		@include flex-between
+	}
+
+	.flex-column {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.text-ellipsis {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
 </style>

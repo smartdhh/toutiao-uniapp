@@ -1,12 +1,15 @@
 @font-face {
-	font-family: 'iconfont';
-	/* project id 2492882 */
-	src: url('https://at.alicdn.com/t/font_2492882_bn6ern8981h.eot');
-	src: url('https://at.alicdn.com/t/font_2492882_bn6ern8981h.eot?#iefix') format('embedded-opentype'),
-		url('https://at.alicdn.com/t/font_2492882_bn6ern8981h.woff2') format('woff2'),
-		url('https://at.alicdn.com/t/font_2492882_bn6ern8981h.woff') format('woff'),
-		url('https://at.alicdn.com/t/font_2492882_bn6ern8981h.ttf') format('truetype'),
-		url('https://at.alicdn.com/t/font_2492882_bn6ern8981h.svg#iconfont') format('svg');
+	font-family: "iconfont";
+	src: url('//at.alicdn.com/t/font_2492882_b1bfzde0sgb.eot?t=1619005982839');
+	/* IE9 */
+	src: url('//at.alicdn.com/t/font_2492882_b1bfzde0sgb.eot?t=1619005982839#iefix') format('embedded-opentype'),
+		/* IE6-IE8 */
+		url('data:application/x-font-woff2;charset=utf-8;base64,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') format('woff2'),
+		url('//at.alicdn.com/t/font_2492882_b1bfzde0sgb.woff?t=1619005982839') format('woff'),
+		url('//at.alicdn.com/t/font_2492882_b1bfzde0sgb.ttf?t=1619005982839') format('truetype'),
+		/* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+		url('//at.alicdn.com/t/font_2492882_b1bfzde0sgb.svg?t=1619005982839#iconfont') format('svg');
+	/* iOS 4.1- */
 }
 
 .iconfont {
@@ -15,6 +18,18 @@
 	font-style: normal;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+.icongotolink:before {
+	content: "\ecaa";
+}
+
+.iconsearch:before {
+	content: "\e602";
+}
+
+.iconadd:before {
+	content: "\e65a";
 }
 
 .iconshare:before {
