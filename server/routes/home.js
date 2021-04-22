@@ -19,7 +19,6 @@ module.exports = [{
 					_signature: 'h3Hu5QAA5.5vq8yYamAx7Idx7v',
 					i: max_behot_time || '1619065939'
 				});
-				console.log(data.data.length)
 				return data;
 			},
 		},

@@ -2,43 +2,43 @@
 	<view class="home">
 		<com-head></com-head>
 		<view class="page">
-			<view v-for="{item_id,title,video_play_count,behot_time,abstract,source,media_avatar_url,comments_count=0,image_url,image_list=[],video_duration_str,middle_image,video_id},index in newsList" :key="index" :class="{index,image_list,middle_image,video_id} | viewClassFilter">
-				<template v-if="index==3 && (middle_image || image_url)">
+			<view v-for="{item_id,title,like_count,publish_time,abstract,media_name,media_info,comments_count,image_url,image_list,video_duration,large_image_url,video_detail_info},index in newsList" :key="index" :class="{index,image_list,large_image_url,video_detail_info} | viewClassFilter">
+				<template v-if="index==3 && (large_image_url || image_url)">
 					<view class="commsgheader">
-						<image :src="media_avatar_url"></image>
+						<image :src="media_info.avatar_url"></image>
 						<view class="info">
-							<view class="name">{{source}}</view>
-							<view class="sub">由{{source}}推荐的广告</view>
+							<view class="name">{{media_info.name}}</view>
+							<view class="sub">由{{media_info.name}}推荐的广告</view>
 						</view>
 					</view>
 					<view class="title">
 						{{title}}
 					</view>
 					<view class="preview">
-						<image :src="middle_image || image_url" mode="widthFix"></image>
+						<image :src="large_image_url || image_url" mode="widthFix"></image>
 					</view>
 					<view class="commsgfooter">
 						<view>广告</view>
 						<view class="go">
 							<view class="iconfont icongotolink"></view>
-							<view>去{{source}}</view>
+							<view>去{{media_info.name}}</view>
 						</view>
 						<view class="iconfont iconcross"></view>
 					</view>
 				</template>
-				<template v-else-if="index===8 && (middle_image || image_url)">
+				<template v-else-if="index===8 && (large_image_url || image_url)">
 					<view class="commsgheader">
-						<image :src="media_avatar_url"></image>
+						<image :src="media_info.avatar_url"></image>
 						<view class="info">
-							<view class="name">{{source}}</view>
-							<view class="sub">{{behot_time | publishAgoFilter}}前更新</view>
+							<view class="name">{{media_info.name}}</view>
+							<view class="sub">{{publish_time | publishAgoFilter}}前更新</view>
 						</view>
 					</view>
 					<view class="title">
 						{{title}}
 					</view>
 					<view class="preview">
-						<image :src="middle_image || image_url" mode="widthFix"></image>
+						<image :src="large_image_url || image_url" mode="widthFix"></image>
 					</view>
 					<view class="toolfooter">
 						<view>
@@ -51,7 +51,7 @@
 						</view>
 						<view>
 							<view class="iconfont iconzan"></view>
-							<view>{{video_play_count}}</view>
+							<view>{{like_count}}</view>
 						</view>
 					</view>
 				</template>
@@ -70,7 +70,7 @@
 							</view>
 						</view>
 						<view class="preview">
-							<image :src="middle_image || image_url"></image>
+							<image :src="large_image_url || image_url"></image>
 						</view>
 					</view>
 				</template>
@@ -85,15 +85,15 @@
 						<view v-if="image_list.length>0" class="preview">
 							<image v-for="{url},iindex in image_list" :src="url" mode="widthFix"></image>
 						</view>
-						<view v-if="!!video_id" class="preview">
-							<image :src="middle_image || image_url" mode="widthFix"></image>
+						<view v-if="!!video_detail_info" class="preview">
+							<image :src="large_image_url || image_url" mode="widthFix"></image>
 							<view class="iconfont iconvideo"></view>
-							<view class="time">{{video_duration_str}}</view>
+							<view class="time">{{video_duration | videoLengthFilter}}</view>
 						</view>
 					</template>
 					<view class="commsgfooter">
 						<view class="upper" v-if="index<2">置顶</view>
-						<view class="author">{{source}}</view>
+						<view class="author">{{media_name}}</view>
 						<view class="comment">{{comments_count}}条评论</view>
 					</view>
 				</template>
@@ -139,17 +139,17 @@
 				return result.join(':');
 			},
 			viewClassFilter(value) {
-				let { index, image_url, image_list, middle_image, video_id } = value;
+				let { index, image_url, image_list, large_image_url, video_detail_info } = value;
 				let classInfo = "";
 				if (index < 2) {
 					classInfo = 'uppermsg';
-				} else if (index === 3 && (middle_image || image_url)) {
+				} else if (index === 3 && (large_image_url || image_url)) {
 					classInfo = 'admsg';
 				} else if (index % 12 === 0) {
 					classInfo = "hotmsg";
 				} else if (image_list.length > 0) {
 					classInfo = 'imgmsg'
-				} else if (!!video_id) {
+				} else if (!!video_detail_info) {
 					classInfo = 'videomsg'
 				}
 				return ['commsg', classInfo];
@@ -213,10 +213,6 @@
 
 		.title {
 			padding-bottom: 8upx;
-			display: -webkit-box;
-			-webkit-box-orient: vertical;
-			-webkit-line-clamp: 2;
-			overflow: hidden;
 		}
 
 		.sub-title {
@@ -345,7 +341,6 @@
 
 		.toolfooter {
 			display: flex;
-			padding-top: 4upx;
 
 			&>view {
 				display: flex;
