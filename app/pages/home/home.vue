@@ -1,194 +1,180 @@
 <template>
 	<view class="home">
 		<com-head></com-head>
-		<scroll-view scroll-y="true" @scrolltolower="onGetMorePageData" class="page">
-			<view class="commsg uppermsg">
-				<view class="title">
-					习近平将出席领导人气候峰会
-				</view>
-				<view class="commsgfooter">
-					<view class="upper">置顶</view>
-					<view class="author">新华网客户端</view>
-					<view class="comment">26条评论</view>
-				</view>
-			</view>
-			<view class="commsg uppermsg">
-				<view class="title">
-					让青春在不懈的奋斗中绽放绚丽之花
-				</view>
-				<view class="commsgfooter">
-					<view class="upper">置顶</view>
-					<view class="author">新华网客户端</view>
-					<view class="comment">26条评论</view>
-				</view>
-			</view>
-			<view class="commsg uppermsg">
-				<view class="title">
-					在梁启超家乡江门重温少年中国说
-				</view>
-				<view class="commsgfooter">
-					<view class="author">新华社</view>
-					<view class="comment">26条评论</view>
-				</view>
-			</view>
-			<view class="videocontent commsg">
-				<scroll-view scroll-x="true" @scrolltolower="onGetMoreVideoData()">
-					<view class="videoitem">
-						<image src="http://192.168.43.72:3203/public/img/home/info2.jpg"></image>
-						<view class="videoname text-ellipsis">同乡被打，这群年轻人持刀进攻，造成10伤</view>
-					</view>
-					<view class="videoitem">
-						<image src="http://192.168.43.72:3203/public/img/home/info2.jpg"></image>
-						<view class="videoname text-ellipsis">同乡被打，这群年轻人持刀进攻，造成10伤</view>
-					</view>
-					<view class="videoitem">
-						<image src="http://192.168.43.72:3203/public/img/home/info2.jpg"></image>
-						<view class="videoname text-ellipsis">同乡被打，这群年轻人持刀进攻，造成10伤</view>
-					</view>
-				</scroll-view>
-				<view class="commsgfooter">
-					<view class="author">精彩小视频</view>
-				</view>
-			</view>
-
-			<view class="commsg admsg">
-				<view class="commsgheader">
-					<image src="http://192.168.43.72:3203/public/img/luffy.jpg"></image>
-					<view class="info">
-						<view class="name">京东</view>
-						<view class="sub">由京东推荐的广告</view>
-					</view>
-				</view>
-				<view class="title">
-					京东敖东品牌特惠！现秒杀价真便宜！
-				</view>
-				<view class="preview">
-					<image src="http://192.168.43.72:3203/public/img/home/ad1.jpg" mode="widthFix"></image>
-				</view>
-				<view class="commsgfooter">
-					<view>广告</view>
-					<view class="go">
-						<view class="iconfont icongotolink"></view>
-						<view>去京东</view>
-					</view>
-					<view class="iconfont iconcross"></view>
-				</view>
-			</view>
-			<view class="commsg">
-				<view class="title">
-					走向共和：和袁世凯谈清室退位后的优待条件，隆裕皇太后在这方面也够老辣的
-				</view>
-				<view class="preview">
-					<image src="http://192.168.43.72:3203/public/img/home/movie1.jpg" mode="widthFix"></image>
-					<view class="iconfont iconvideo"></view>
-					<view class="time">03:49</view>
-				</view>
-				<view class="commsgfooter">
-					<view class="author">风行影视听听</view>
-					<view class="comment">26条评论</view>
-					<view class="date">3小时前</view>
-				</view>
-			</view>
-			<view class="commsg hotmsg">
-				<view class="hotheader">
-					<view class="tag">热榜</view>
-					<view class="title">今日热门事件</view>
-				</view>
-				<view class="flex-between content">
-					<view class="flex-between flex-column">
-						<view class="title">
-							人大教授：应该把拼多多罚到倾家荡产
+		<view class="page">
+			<view v-for="{item_id,title,like_count,publish_time,abstract,media_name,media_info,comment_count,image_url,image_list,video_duration,large_image_url,video_detail_info},index in newsList" :key="index" :class="{index,image_list,large_image_url,video_detail_info} | viewClassFilter">
+				<template v-if="index==3 && (large_image_url || image_url)">
+					<view class="commsgheader">
+						<image :src="media_info.avatar_url"></image>
+						<view class="info">
+							<view class="name">{{media_info.name}}</view>
+							<view class="sub">由{{media_info.name}}推荐的广告</view>
 						</view>
-						<view class="commsgfooter">
-							<view class="visitor">691.9万人都在看</view>
-						</view>
+					</view>
+					<view class="title">
+						{{title}}
 					</view>
 					<view class="preview">
-						<image src="http://192.168.43.72:3203/public/img/home/ad1.jpg" mode="widthFix"></image>
+						<image :src="large_image_url || image_url" mode="widthFix"></image>
 					</view>
-				</view>
-
+					<view class="commsgfooter">
+						<view>广告</view>
+						<view class="go">
+							<view class="iconfont icongotolink"></view>
+							<view>去{{media_info.name}}</view>
+						</view>
+						<view class="iconfont iconcross"></view>
+					</view>
+				</template>
+				<template v-else-if="index===8 && (large_image_url || image_url)">
+					<view class="commsgheader">
+						<image :src="media_info.avatar_url"></image>
+						<view class="info">
+							<view class="name">{{media_info.name}}</view>
+							<view class="sub">{{publish_time | publishAgoFilter}}前更新</view>
+						</view>
+					</view>
+					<view class="title">
+						{{title}}
+					</view>
+					<view class="preview">
+						<image :src="large_image_url || image_url" mode="widthFix"></image>
+					</view>
+					<view class="toolfooter">
+						<view>
+							<view class="iconfont iconshare1"></view>
+							<view>分享</view>
+						</view>
+						<view>
+							<view class="iconfont iconmessage"></view>
+							<view>{{comment_count}}</view>
+						</view>
+						<view>
+							<view class="iconfont iconzan"></view>
+							<view>{{like_count}}</view>
+						</view>
+					</view>
+				</template>
+				<template v-else-if="index>1 && index%12===0">
+					<view class="hotheader">
+						<view class="tag">热榜</view>
+						<view class="title">今日热门事件</view>
+					</view>
+					<view class="flex-between content">
+						<view class="flex-between flex-column">
+							<view class="title">
+								{{title}}
+							</view>
+							<view class="commsgfooter">
+								<view class="visitor">691.9万人都在看</view>
+							</view>
+						</view>
+						<view class="preview">
+							<image :src="large_image_url || image_url"></image>
+						</view>
+					</view>
+				</template>
+				<template v-else>
+					<view class="title">
+						{{title}}
+					</view>
+					<view v-if="index>1 && index%10===0" class="sub-title">
+						{{abstract}}
+					</view>
+					<template v-if="index>1">
+						<view v-if="image_list.length>0" class="preview">
+							<image v-for="{url},iindex in image_list" :src="url" mode="widthFix"></image>
+						</view>
+						<view v-if="!!video_detail_info" class="preview">
+							<image :src="large_image_url || image_url" mode="widthFix"></image>
+							<view class="iconfont iconvideo"></view>
+							<view class="time">{{video_duration | videoLengthFilter}}</view>
+						</view>
+					</template>
+					<view class="commsgfooter">
+						<view class="upper" v-if="index<2">置顶</view>
+						<view class="author">{{media_name}}</view>
+						<view class="comment">{{comment_count}}条评论</view>
+					</view>
+				</template>
 			</view>
-			<view class="commsg imgmsg">
-				<view class="title">
-					巨头突然宣布：涨价！很多人都爱喝
-				</view>
-				<view class="preview">
-					<image src="http://192.168.43.72:3203/public/img/home/ad1.jpg" mode="widthFix"></image>
-					<image src="http://192.168.43.72:3203/public/img/home/ad1.jpg" mode="widthFix"></image>
-					<image src="http://192.168.43.72:3203/public/img/home/ad1.jpg" mode="widthFix"></image>
-				</view>
-				<view class="commsgfooter">
-					<view class="author">光明网</view>
-					<view class="comment">26条评论</view>
-					<view class="date">3小时前</view>
-				</view>
-			</view>
-			<view class="commsg">
-				<view class="commsgheader">
-					<image src="http://192.168.43.72:3203/public/img/luffy.jpg"></image>
-					<view class="info">
-						<view class="name">京东</view>
-						<view class="sub">由京东推荐的广告</view>
-					</view>
-				</view>
-				<view class="title">
-					玩水上项目，也一定要学会及时刹车
-				</view>
-				<view class="preview">
-					<image src="http://192.168.43.72:3203/public/img/home/info1.jpg" mode="heightFix"></image>
-				</view>
-				<view class="toolfooter">
-					<view>
-						<view class="iconfont iconshare1"></view>
-						<view>分享</view>
-					</view>
-					<view>
-						<view class="iconfont iconmessage"></view>
-						<view>27</view>
-					</view>
-					<view>
-						<view class="iconfont iconzan"></view>
-						<view>116</view>
-					</view>
-				</view>
-			</view>
-			<view class="commsg imgmsg">
-				<view class="title">
-					都说“司马昭之心，路人皆知”，那司马昭到底有多嚣张，你真的知道吗！？
-				</view>
-				<view class="sub-title">
-					司马昭是三国时魏国人，他父亲名叫司马懿，是魏国的大将。魏明帝曹叡死时，托付曹爽与司马懿辅佐齐王曹芳治理天下。
-				</view>
-				<view class="preview">
-					<image src="http://192.168.43.72:3203/public/img/home/ad1.jpg" mode="widthFix"></image>
-					<image src="http://192.168.43.72:3203/public/img/home/ad1.jpg" mode="widthFix"></image>
-					<image src="http://192.168.43.72:3203/public/img/home/ad1.jpg" mode="widthFix"></image>
-				</view>
-				<view class="commsgfooter">
-					<view class="upper">问答</view>
-					<view class="author">剧透历史</view>
-					<view class="comment">26条评论</view>
-					<view class="date">3小时前</view>
-				</view>
-			</view>
-		</scroll-view>
+		</view>
 	</view>
 </template>
 
 <script>
 	import comHead from "@/components/comHead.vue";
+	import { homeUrl } from "@/constants/url.js"
+	import { getJsonData } from "@/core/api.js"
 	export default {
 		data() {
 			return {
-
+				newsList: []
 			};
+		},
+		filters: {
+			publishAgoFilter(value) {
+				let result = "刚刚";
+				let seconds = value / 1000;
+				if (value > 60) {
+					let years = parseInt(seconds / 60 / 60 / 24 / 365);
+					let days = parseInt(seconds / 60 / 60 / 24);
+					let hours = parseInt(seconds / 60 / 60);
+					let minutes = parseInt(seconds / 60);
+					result = years ? years + '年' : (days ? days + '天' : (hours ? hours + '小时' : (minutes ? minutes + '分钟' : '')))
+				}
+				return result;
+			},
+			videoLengthFilter(value) {
+				// 获取小时
+				let hours = parseInt(value / 60 / 60);
+				let minutes = parseInt(value / 60 - 60 * hours);
+				let seconds = value % 60;
+				let result = [hours, minutes, seconds].reduce((pre, cur, index) => {
+					if (!(index === 0 && hours === 0)) {
+						pre.push((cur + '').padStart(2, '0'));
+					}
+					return pre
+				}, [])
+				return result.join(':');
+			},
+			viewClassFilter(value) {
+				let { index, image_url, image_list, large_image_url, video_detail_info } = value;
+				let classInfo = "";
+				if (index < 2) {
+					classInfo = 'uppermsg';
+				} else if (index === 3 && (large_image_url || image_url)) {
+					classInfo = 'admsg';
+				} else if (index % 12 === 0) {
+					classInfo = "hotmsg";
+				} else if (image_list.length > 0) {
+					classInfo = 'imgmsg'
+				} else if (!!video_detail_info) {
+					classInfo = 'videomsg'
+				}
+				return ['commsg', classInfo];
+			}
 		},
 		components: {
 			comHead
 		},
+		onPullDownRefresh() {
+			getJsonData(homeUrl.news).then(resp => {
+				this.newsList = resp;
+				uni.stopPullDownRefresh();
+			})
+		},
+		onReachBottom() {
+			getJsonData(homeUrl.news).then(resp => {
+				this.newsList = this.newsList.concat(resp);
+			})
+		},
+		mounted() {
+			getJsonData(homeUrl.news).then(resp => {
+				this.newsList = resp;
+			})
+		},
 		methods: {
-			onGetMorePageData() {},
 			onGetMoreVideoData() {},
 		}
 	}
@@ -294,6 +280,7 @@
 			font-weight: bold;
 			display: flex;
 			padding-bottom: 10upx;
+			align-items: center;
 
 			.tag {
 				background-color: $base-red-color;
@@ -384,6 +371,11 @@
 
 			.preview {
 				width: 200upx;
+
+				image {
+					height: 100%;
+					width: 100%;
+				}
 			}
 		}
 

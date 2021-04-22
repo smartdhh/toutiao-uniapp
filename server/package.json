@@ -9,10 +9,13 @@
     },
     "dependencies": {
         "cookie-parser": "~1.4.3",
+        "cors": "^2.8.4",
         "express": "^4.16.3",
         "express-ws": "^3.0.0",
-        "cors": "^2.8.4",
-        "morgan": "~1.9.0"
+        "iconv-lite": "^0.6.2",
+        "morgan": "~1.9.0",
+        "request": "^2.88.2",
+        "urijs": "^1.19.6"
     },
     "devDependencies": {
         "cross-env": "^7.0.3",

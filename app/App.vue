@@ -22,7 +22,7 @@
 		padding: 180upx 30upx 20upx;
 		//#ifdef  APP-PLUS
 		padding-top: 230upx;
-		//#ifdef
+		//#endif
 	}
 
 	.flex-between {
