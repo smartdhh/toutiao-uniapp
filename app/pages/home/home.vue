@@ -1,9 +1,9 @@
 <template>
 	<view class="home">
-		<com-head></com-head>
+		<com-head :category="category"></com-head>
 		<view class="page">
 			<view v-for="{item_id,title,video_play_count,behot_time,abstract,source,media_avatar_url,comments_count=0,image_url,image_list=[],video_duration_str,middle_image,video_id},index in newsList" :key="index" :class="{index,image_list,middle_image,video_id} | viewClassFilter">
-				<template v-if="index==3 && (middle_image || image_url)">
+				<template v-if="index==3 && (image_url || middle_image)">
 					<view class="commsgheader">
 						<image :src="media_avatar_url"></image>
 						<view class="info">
@@ -15,7 +15,7 @@
 						{{title}}
 					</view>
 					<view class="preview">
-						<image :src="middle_image || image_url" mode="widthFix"></image>
+						<image :src="image_url || middle_image" mode="widthFix"></image>
 					</view>
 					<view class="commsgfooter">
 						<view>广告</view>
@@ -26,7 +26,7 @@
 						<view class="iconfont iconcross"></view>
 					</view>
 				</template>
-				<template v-else-if="index===8 && (middle_image || image_url)">
+				<template v-else-if="index===8 && (image_url || middle_image)">
 					<view class="commsgheader">
 						<image :src="media_avatar_url"></image>
 						<view class="info">
@@ -38,7 +38,7 @@
 						{{title}}
 					</view>
 					<view class="preview">
-						<image :src="middle_image || image_url" mode="widthFix"></image>
+						<image :src="image_url || middle_image" mode="widthFix"></image>
 					</view>
 					<view class="toolfooter">
 						<view>
@@ -70,11 +70,39 @@
 							</view>
 						</view>
 						<view class="preview">
-							<image :src="middle_image || image_url"></image>
+							<image :src="image_url || middle_image"></image>
 						</view>
 					</view>
 				</template>
+				<template v-else-if="index%24===34">
+					<view class="videocontent commsg">
+						<scroll-view scroll-x="true" @scrolltolower="onGetMoreVideoData()">
+							<view class="videoitem">
+								<image src="http://192.168.43.72:3203/public/img/home/info2.jpg"></image>
+								<view class="videoname text-ellipsis">同乡被打，这群年轻人持刀进攻，造成10伤</view>
+							</view>
+							<view class="videoitem">
+								<image src="http://192.168.43.72:3203/public/img/home/info2.jpg"></image>
+								<view class="videoname text-ellipsis">同乡被打，这群年轻人持刀进攻，造成10伤</view>
+							</view>
+							<view class="videoitem">
+								<image src="http://192.168.43.72:3203/public/img/home/info2.jpg"></image>
+								<view class="videoname text-ellipsis">同乡被打，这群年轻人持刀进攻，造成10伤</view>
+							</view>
+						</scroll-view>
+						<view class="commsgfooter">
+							<view class="author">精彩小视频</view>
+						</view>
+					</view>s
+				</template>
 				<template v-else>
+					<view class="commsgheader" v-if="index>1 && image_list.length===0 && index%6===0">
+						<image :src="media_avatar_url"></image>
+						<view class="info">
+							<view class="name">{{source}}</view>
+							<view class="sub">{{behot_time | publishAgoFilter}}前更新</view>
+						</view>
+					</view>
 					<view class="title">
 						{{title}}
 					</view>
@@ -86,7 +114,7 @@
 							<image v-for="{url},iindex in image_list" :src="url" mode="widthFix"></image>
 						</view>
 						<view v-if="!!video_id" class="preview">
-							<image :src="middle_image || image_url" mode="widthFix"></image>
+							<image :src="image_url || middle_image" mode="widthFix"></image>
 							<view class="iconfont iconvideo"></view>
 							<view class="time">{{video_duration_str}}</view>
 						</view>
@@ -104,303 +132,53 @@
 
 <script>
 	import comHead from "@/components/comHead.vue";
-	import { homeUrl } from "@/constants/url.js"
-	import { getJsonData } from "@/core/api.js"
+	import { homeUrl } from "@/constants/url.js";
+	import { getJsonData } from "@/core/api.js";
+	import { homeCategory } from "@/constants/app.js";
+	import { publishAgoFilter, videoLengthFilter, viewClassFilter } from "@/filters/app.js";
+
 	export default {
 		data() {
 			return {
-				newsList: []
+				newsList: [],
+				category: homeCategory
 			};
 		},
 		filters: {
-			publishAgoFilter(value) {
-				let result = "刚刚";
-				let seconds = value / 1000;
-				if (value > 60) {
-					let years = parseInt(seconds / 60 / 60 / 24 / 365);
-					let days = parseInt(seconds / 60 / 60 / 24);
-					let hours = parseInt(seconds / 60 / 60);
-					let minutes = parseInt(seconds / 60);
-					result = years ? years + '年' : (days ? days + '天' : (hours ? hours + '小时' : (minutes ? minutes + '分钟' : '')))
-				}
-				return result;
-			},
-			videoLengthFilter(value) {
-				// 获取小时
-				let hours = parseInt(value / 60 / 60);
-				let minutes = parseInt(value / 60 - 60 * hours);
-				let seconds = value % 60;
-				let result = [hours, minutes, seconds].reduce((pre, cur, index) => {
-					if (!(index === 0 && hours === 0)) {
-						pre.push((cur + '').padStart(2, '0'));
-					}
-					return pre
-				}, [])
-				return result.join(':');
-			},
-			viewClassFilter(value) {
-				let { index, image_url, image_list, middle_image, video_id } = value;
-				let classInfo = "";
-				if (index < 2) {
-					classInfo = 'uppermsg';
-				} else if (index === 3 && (middle_image || image_url)) {
-					classInfo = 'admsg';
-				} else if (index % 12 === 0) {
-					classInfo = "hotmsg";
-				} else if (image_list.length > 0) {
-					classInfo = 'imgmsg'
-				} else if (!!video_id) {
-					classInfo = 'videomsg'
-				}
-				return ['commsg', classInfo];
-			}
+			publishAgoFilter,
+			videoLengthFilter,
+			viewClassFilter
 		},
 		components: {
 			comHead
 		},
 		onPullDownRefresh() {
-			getJsonData(homeUrl.news).then(resp => {
-				this.newsList = resp;
-				uni.stopPullDownRefresh();
-			})
+			this.onGetPageData(true)
 		},
 		onReachBottom() {
-			getJsonData(homeUrl.news).then(resp => {
-				this.newsList = this.newsList.concat(resp);
-			})
+			this.onGetPageData();
+		},
+		onLoad() {
+			uni.startPullDownRefresh()
 		},
 		mounted() {
-			getJsonData(homeUrl.news).then(resp => {
-				this.newsList = resp;
-			})
+			this.onGetPageData(true)
 		},
 		methods: {
+			onGetPageData(isreset) {
+				getJsonData(homeUrl.news).then(resp => {
+					if (isreset) {
+						this.newsList = resp;
+						uni.stopPullDownRefresh();
+					} else {
+						this.newsList = this.newsList.concat(resp);
+					}
+				})
+			},
 			onGetMoreVideoData() {},
 		}
 	}
 </script>
 
 <style lang="scss">
-	// @import "../../uni.scss";
-	.videocontent {
-		white-space: nowrap;
-
-		.videoitem {
-			position: relative;
-			display: inline-block;
-			margin-right: 20upx;
-			width: 300upx;
-			height: 500upx;
-
-			.videoname {
-				position: absolute;
-				color: white;
-				bottom: 20upx;
-				left: 20upx;
-				font-size: 28upx;
-				width: calc(100% - 40upx);
-			}
-
-			image {
-				height: 100%;
-				width: 100%;
-			}
-		}
-	}
-
-	.commsg {
-		padding: 20upx 0;
-
-		.title {
-			padding-bottom: 8upx;
-			display: -webkit-box;
-			-webkit-box-orient: vertical;
-			-webkit-line-clamp: 2;
-			overflow: hidden;
-		}
-
-		.sub-title {
-			font-size: 28upx;
-			color: #8a8a8a
-		}
-
-		.preview {
-			position: relative;
-			color: white;
-
-			image {
-				width: 100%;
-			}
-
-			.time,
-			.iconvideo {
-				position: absolute;
-				z-index: 10;
-			}
-
-			.iconvideo {
-				font-size: 60upx;
-				top: 50%;
-				left: 50%;
-				transform: translate3d(-50%, -50%, 0);
-			}
-
-			.time {
-				right: 20upx;
-				bottom: 20upx;
-				font-size: 24upx;
-			}
-		}
-
-		.commsgheader {
-			display: flex;
-			padding-bottom: 20upx;
-
-			image {
-				height: 72upx;
-				width: 72upx;
-				border-radius: 72upx;
-				margin-right: 20upx;
-			}
-
-			.info {
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
-
-				.name {
-					font-size: 30upx;
-					font-weight: bold;
-				}
-
-				.sub {
-					@include sub;
-				}
-			}
-		}
-
-		.hotheader {
-			font-size: 28upx;
-			font-weight: bold;
-			display: flex;
-			padding-bottom: 10upx;
-			align-items: center;
-
-			.tag {
-				background-color: $base-red-color;
-				font-size: 20upx;
-				color: white;
-				font-weight: normal;
-				padding: 2upx 6upx;
-				border-radius: 6upx;
-				margin-right: 10upx;
-			}
-
-			.title {
-				padding-bottom: 0;
-			}
-		}
-
-		.commsgfooter {
-			display: flex;
-			position: relative;
-
-			&>view {
-				@include sub;
-				padding-right: 20upx;
-
-				&:last-child {
-					padding-right: 0;
-				}
-
-				&.upper {
-					color: $base-red-color;
-				}
-
-				&.go {
-					color: $base-red-color;
-					position: absolute;
-					right: 20upx;
-					top: 0upx;
-					display: flex;
-					align-items: center;
-
-					.iconfont {
-						font-size: 24upx;
-						padding-right: 10upx;
-					}
-				}
-
-				&.iconfont {
-					font-size: 20upx;
-				}
-
-				&.iconcross {
-					position: absolute;
-					right: 0;
-					top: 8upx
-				}
-			}
-		}
-
-		.toolfooter {
-			display: flex;
-			padding-top: 4upx;
-
-			&>view {
-				display: flex;
-				align-items: center;
-				padding-right: 80upx;
-				font-size: 28upx;
-
-				.iconfont {
-					padding-right: 16upx;
-				}
-			}
-		}
-	}
-
-	.admsg {
-		padding: 30upx 0;
-	}
-
-	.hotmsg {
-		padding: 20upx 0;
-
-		.content {
-			height: 160upx;
-
-			&>view {
-				height: 100%;
-			}
-
-			.preview {
-				width: 200upx;
-
-				image {
-					height: 100%;
-					width: 100%;
-				}
-			}
-		}
-
-	}
-
-	.imgmsg {
-		.preview {
-			@include flex-between;
-
-			image {
-				padding-right: 10upx;
-
-				&:last-child {
-					padding-right: 0;
-				}
-			}
-		}
-	}
-
-	.uppermsg {
-		padding-top: 0;
-	}
 </style>

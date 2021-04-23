@@ -11,22 +11,27 @@
 			</view>
 		</view>
 		<view class="category">
-			<view v-for="item,index in category" :class="{active:index===0}" :key="index">{{item.name}}</view>
+			<view v-for="item,index in category" :class="{active:index===currentIndex}" :key="index" @click="onSwitchCategory(item,index)">{{item.name}}</view>
 		</view>
 	</view>
 </template>
-
 <script>
 	import { category as defaultCategory } from "@/constants/app.js"
 	export default {
 		name: "comHead",
-		props: { category: { default: () => defaultCategory } },
+		props: { category: { default: () => defaultCategory }, defaultIndex: { default: 0 } },
 		data() {
-			return {};
+			return {
+				currentIndex: this.defaultIndex
+			};
+		},
+		methods: {
+			onSwitchCategory(item, index) {
+				this.currentIndex = index
+			}
 		}
 	}
 </script>
-
 <style lang="scss">
 	@import "../uni.scss";
 
@@ -48,8 +53,8 @@
 			justify-content: space-between;
 			//#ifdef  APP-PLUS
 			padding-top: 60upx;
-			//#endif
 
+			//#endif
 			.search-content {
 				display: flex;
 				flex-grow: 1;
@@ -95,9 +100,10 @@
 				&::after {
 					content: '';
 					width: calc(60% - 18upx);
-					height: 3px;
+					height: 6upx;
 					background-color: transparent;
 					position: absolute;
+					border-radius: 6upx;
 					bottom: 0px;
 					left: 50%;
 					transform: translateX(-50%);
@@ -105,7 +111,6 @@
 
 				&.active {
 					color: $base-red-color;
-					font-weight: bold;
 
 					&::after {
 						background-color: $base-red-color;

@@ -7,4 +7,5 @@ if (process.env.NODE_ENV === 'production') {
 
 export let homeUrl = {
 	news: `${rootPrefix}home/info`,
+	video: `${rootPrefix}home/video`
 }
