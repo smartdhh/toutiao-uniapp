@@ -6,24 +6,28 @@
 		</view>
 		<view class="flex-between content">
 			<view class="flex-between flex-column">
-				<view class="title"> 人大教授：应该把拼多多罚到倾家荡产 </view>
+				<view class="title">
+					{{info.title}}
+				</view>
 				<view class="commsgfooter">
-					<view class="visitor">691.9万人都在看</view>
+					<view class="visitor">{{info.behot_time | countStrFilter}}人都在看</view>
 				</view>
 			</view>
 			<view class="preview">
-				<image src="http://192.168.43.72:3203/public/img/home/ad1.jpg" mode="widthFix"></image>
+				<image :src="info.large_image_url || info.image_url || info.middle_image"></image>
 			</view>
 		</view>
 	</view>
 </template>
 <script>
-	import { category as defaultCategory } from "@/constants/app.js"
+	import { publishAgoFilter, countStrFilter } from "@/filters/app.js";
 	export default {
-		name: "upper",
-		props: { comments_count: { default: 0 }, source: { default: '头条' }, title: { default: '' } },
+		props: { info: { default: () => ({}) } },
 		data() {
 			return {};
+		},
+		filters:{
+			countStrFilter
 		},
 		methods: {
 			onSwitchCategory(item, index) {

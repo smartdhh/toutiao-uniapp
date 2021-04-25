@@ -15,10 +15,12 @@
 			"path": "pages/video/video",
 			"style": {
 				"navigationBarTitleText": "西瓜视频",
+				"enablePullDownRefresh": true,
+				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom",
 				"app-plus": {
-					"titleNView": false // 禁用原生导航栏
-				},
-				"enablePullDownRefresh": true //开启该页面下拉刷新
+					"titleNView": false
+				}
 			}
 		}, {
 			"path": "pages/movie/movie",

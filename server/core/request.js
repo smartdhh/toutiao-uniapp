@@ -25,7 +25,6 @@ const rootRequest = function(url, params, method = 'get') {
 	});
 }
 
-
 const getJsonData = function(url, params) {
 	return rootRequest(url, params);
 }
@@ -33,11 +32,3 @@ const getJsonData = function(url, params) {
 module.exports = {
 	getJsonData
 }
-
-// getJsonData('https://www.toutiao.com/api/pc/feed/').then(resp => {
-// 	console.log(resp)
-// })
-
-// getJsonData('https://m.toutiao.com/list/?tag=__all__&ac=wap&count=20&format=json_raw&as=A1F6A0B8A1E405D&cp=6081342075DDCE1&max_behot_time=1619065938&_signature=h3Hu5QAA5.5vq8yYamAx7Idx7v&i=1619065938').then(resp => {
-// 	console.log(resp)
-// })

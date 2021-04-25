@@ -14,8 +14,7 @@ export function viewClassFilter(value) {
 	}
 	return ['commsg', classInfo];
 }
-
-export function publishAgoFilter(value) {
+export function publishAgoFilter(value = 0) {
 	let result = "刚刚";
 	let seconds = value / 1000;
 	if (value > 60) {
@@ -27,8 +26,7 @@ export function publishAgoFilter(value) {
 	}
 	return result;
 };
-
-export function videoLengthFilter(value) {
+export function videoLengthFilter(value = 0) {
 	// 获取小时
 	let hours = parseInt(value / 60 / 60);
 	let minutes = parseInt(value / 60 - 60 * hours);
@@ -41,3 +39,15 @@ export function videoLengthFilter(value) {
 	}, [])
 	return result.join(':');
 };
+export function imgSrcFilter(value) {
+	return value.large_image_url || value.image_url || value.middle_image;
+}
+export function countStrFilter(value = 0) {
+	if (value > 100000000) {
+		return (value / 100000000).toFixed(2) + '亿';
+	}
+	if (value > 10000) {
+		return (value / 10000).toFixed(2) + '万';
+	}
+	return value;
+}

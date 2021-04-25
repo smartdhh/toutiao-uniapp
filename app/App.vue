@@ -192,20 +192,4 @@
 		}
 	}
 
-	
-	.imgmsg {
-		.preview {
-			@include flex-between;
-
-			image {
-				padding-right: 10upx;
-
-				&:last-child {
-					padding-right: 0;
-				}
-			}
-		}
-	}
-
-
 </style>

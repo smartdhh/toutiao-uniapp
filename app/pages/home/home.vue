@@ -2,141 +2,30 @@
 	<view class="home">
 		<com-head :category="category"></com-head>
 		<view class="page">
-			<view v-for="{item_id,title,video_play_count,behot_time,abstract,source,media_avatar_url,comments_count=0,image_url,image_list=[],video_duration_str,middle_image,video_id},index in newsList" :key="index" :class="{index,image_list,middle_image,video_id} | viewClassFilter">
-				<template v-if="index==3 && (image_url || middle_image)">
-					<view class="commsgheader">
-						<image :src="media_avatar_url"></image>
-						<view class="info">
-							<view class="name">{{source}}</view>
-							<view class="sub">由{{source}}推荐的广告</view>
-						</view>
-					</view>
-					<view class="title">
-						{{title}}
-					</view>
-					<view class="preview">
-						<image :src="image_url || middle_image" mode="widthFix"></image>
-					</view>
-					<view class="commsgfooter">
-						<view>广告</view>
-						<view class="go">
-							<view class="iconfont icongotolink"></view>
-							<view>去{{source}}</view>
-						</view>
-						<view class="iconfont iconcross"></view>
-					</view>
-				</template>
-				<template v-else-if="index===8 && (image_url || middle_image)">
-					<view class="commsgheader">
-						<image :src="media_avatar_url"></image>
-						<view class="info">
-							<view class="name">{{source}}</view>
-							<view class="sub">{{behot_time | publishAgoFilter}}前更新</view>
-						</view>
-					</view>
-					<view class="title">
-						{{title}}
-					</view>
-					<view class="preview">
-						<image :src="image_url || middle_image" mode="widthFix"></image>
-					</view>
-					<view class="toolfooter">
-						<view>
-							<view class="iconfont iconshare1"></view>
-							<view>分享</view>
-						</view>
-						<view>
-							<view class="iconfont iconmessage"></view>
-							<view>{{comments_count}}</view>
-						</view>
-						<view>
-							<view class="iconfont iconzan"></view>
-							<view>{{video_play_count}}</view>
-						</view>
-					</view>
-				</template>
-				<template v-else-if="index>1 && index%12===0">
-					<view class="hotheader">
-						<view class="tag">热榜</view>
-						<view class="title">今日热门事件</view>
-					</view>
-					<view class="flex-between content">
-						<view class="flex-between flex-column">
-							<view class="title">
-								{{title}}
-							</view>
-							<view class="commsgfooter">
-								<view class="visitor">691.9万人都在看</view>
-							</view>
-						</view>
-						<view class="preview">
-							<image :src="image_url || middle_image"></image>
-						</view>
-					</view>
-				</template>
-				<template v-else-if="index%24===34">
-					<view class="videocontent commsg">
-						<scroll-view scroll-x="true" @scrolltolower="onGetMoreVideoData()">
-							<view class="videoitem">
-								<image src="http://192.168.43.72:3203/public/img/home/info2.jpg"></image>
-								<view class="videoname text-ellipsis">同乡被打，这群年轻人持刀进攻，造成10伤</view>
-							</view>
-							<view class="videoitem">
-								<image src="http://192.168.43.72:3203/public/img/home/info2.jpg"></image>
-								<view class="videoname text-ellipsis">同乡被打，这群年轻人持刀进攻，造成10伤</view>
-							</view>
-							<view class="videoitem">
-								<image src="http://192.168.43.72:3203/public/img/home/info2.jpg"></image>
-								<view class="videoname text-ellipsis">同乡被打，这群年轻人持刀进攻，造成10伤</view>
-							</view>
-						</scroll-view>
-						<view class="commsgfooter">
-							<view class="author">精彩小视频</view>
-						</view>
-					</view>s
-				</template>
-				<template v-else>
-					<view class="commsgheader" v-if="index>1 && image_list.length===0 && index%6===0">
-						<image :src="media_avatar_url"></image>
-						<view class="info">
-							<view class="name">{{source}}</view>
-							<view class="sub">{{behot_time | publishAgoFilter}}前更新</view>
-						</view>
-					</view>
-					<view class="title">
-						{{title}}
-					</view>
-					<view v-if="index>1 && index%10===0" class="sub-title">
-						{{abstract}}
-					</view>
-					<template v-if="index>1">
-						<view v-if="image_list.length>0" class="preview">
-							<image v-for="{url},iindex in image_list" :src="url" mode="widthFix"></image>
-						</view>
-						<view v-if="!!video_id" class="preview">
-							<image :src="image_url || middle_image" mode="widthFix"></image>
-							<view class="iconfont iconvideo"></view>
-							<view class="time">{{video_duration_str}}</view>
-						</view>
-					</template>
-					<view class="commsgfooter">
-						<view class="upper" v-if="index<2">置顶</view>
-						<view class="author">{{source}}</view>
-						<view class="comment">{{comments_count}}条评论</view>
-					</view>
-				</template>
-			</view>
+			<template v-for="item,index in newsList">
+				<!-- 此处调用头条接口返回数据，显示类型按照规则生成 -->
+				<com-msg v-if="index<2" :isupper="index<2" :info="item"></com-msg>
+				<ad-msg v-else-if="index===3 && (item.image_url || item.middle_image)" :info="item"></ad-msg>
+				<avatar-msg v-else-if="index===8 && (item.image_url || item.middle_image)" :info="item"></avatar-Msg>
+				<hot-msg v-else-if="index%12===0" :info="item"></hot-msg>
+				<video-msg v-else-if="!!item.video_id" :info="item"></video-msg>
+				<img-msg v-else-if="item.image_list && item.image_list.length>0" :info="item"></img-msg>
+				<com-msg v-else :info="item"></com-msg>
+			</template>
 		</view>
 	</view>
 </template>
-
 <script>
 	import comHead from "@/components/comHead.vue";
+	import adMsg from "@/components/message/ad.vue";
+	import hotMsg from "@/components/message/hot.vue";
+	import imgMsg from "@/components/message/img.vue";
+	import comMsg from "@/components/message/com.vue";
+	import avatarMsg from "@/components/message/avatar.vue";
+	import videoMsg from "@/components/message/video.vue";
 	import { homeUrl } from "@/constants/url.js";
 	import { getJsonData } from "@/core/api.js";
 	import { homeCategory } from "@/constants/app.js";
-	import { publishAgoFilter, videoLengthFilter, viewClassFilter } from "@/filters/app.js";
-
 	export default {
 		data() {
 			return {
@@ -144,13 +33,14 @@
 				category: homeCategory
 			};
 		},
-		filters: {
-			publishAgoFilter,
-			videoLengthFilter,
-			viewClassFilter
-		},
 		components: {
-			comHead
+			comHead,
+			adMsg,
+			hotMsg,
+			imgMsg,
+			comMsg,
+			avatarMsg,
+			videoMsg
 		},
 		onPullDownRefresh() {
 			this.onGetPageData(true)
@@ -178,7 +68,7 @@
 			onGetMoreVideoData() {},
 		}
 	}
-</script>
 
+</script>
 <style lang="scss">
 </style>

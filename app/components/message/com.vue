@@ -1,21 +1,18 @@
 <template>
 	<view class="commsg uppermsg">
 		<view class="title">
-			{{title}}
+			{{info.title}}
 		</view>
 		<view class="commsgfooter">
-			<view class="upper">置顶</view>
-			<view class="author">{{source}}</view>
-			<view class="comment">{{comments_count}}条评论</view>
+			<view v-if="isupper" class="upper">置顶</view>
+			<view class="author">{{info.source}}</view>
+			<view class="comment">{{info.comments_count}}条评论</view>
 		</view>
 	</view>
 </template>
-
 <script>
-	import { category as defaultCategory } from "@/constants/app.js"
 	export default {
-		name: "upper",
-		props: { comments_count: { default: 0 }, source: { default: '头条' }, title: { default: '' } },
+		props: { info: { default: () => ({}) }, isupper: { default: false } },
 		data() {
 			return {};
 		},
@@ -25,10 +22,11 @@
 			}
 		}
 	}
-</script>
 
+</script>
 <style lang="scss">
 	.uppermsg {
 		padding-top: 0;
 	}
+
 </style>
