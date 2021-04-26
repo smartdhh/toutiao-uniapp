@@ -20,6 +20,7 @@ const rootRequest = function(url, params = {}, method = 'get') {
 		}
 		request(option, function(error, response, body) {
 			if (!error && response.statusCode == 200) {
+				// 如果body不存在，则启用本地模拟数据
 				resolve(body || readLocalFileData(uri.pathname()));
 			} else {
 				reject(error);

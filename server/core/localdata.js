@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
+// 读取本地模拟json数据
 const readLocalFileData = function(filePath) {
 	var filePathLength = filePath.length;
 	var tempFilePath = (filePath.lastIndexOf('/') === filePathLength - 1 ? filePath.substr(0, filePathLength - 1) : filePath) + '.json';
