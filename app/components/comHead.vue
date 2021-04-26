@@ -1,6 +1,6 @@
 <template>
 	<view class="comhead">
-		<view class="search">
+		<view class="search" @tap="onSwitchSearch">
 			<view class="search-content">
 				<view class="iconfont iconsearch"></view>
 				<view>房贷多长时间能批下来</view>
@@ -28,13 +28,17 @@
 		methods: {
 			onSwitchCategory(item, index) {
 				this.currentIndex = index
+			},
+			onSwitchSearch() {
+				uni.navigateTo({
+					url: '/pages/search/search'
+				})
 			}
 		}
 	}
+
 </script>
 <style lang="scss">
-	@import "../uni.scss";
-
 	.comhead {
 		border-bottom: 1px solid #ececec;
 		position: fixed;
@@ -51,10 +55,10 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			//#ifdef  APP-PLUS
+			//#ifdef  APP-PLUS || MP-WEIXIN
 			padding-top: 60upx;
-
 			//#endif
+
 			.search-content {
 				display: flex;
 				flex-grow: 1;
@@ -119,4 +123,5 @@
 			}
 		}
 	}
+
 </style>

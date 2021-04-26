@@ -46,7 +46,13 @@ const mobileCommonRequest = function(category) {
 	return getJsonData(toutiaoUrl.mobile, params);
 }
 
+// search关键字请求接口
+const searchCommonRequest = function(category) {
+	return getJsonData(toutiaoUrl.search);
+}
+
 module.exports = {
+	searchCommonRequest,
 	mobileCommonRequest,
 	pcCommonRequest
 }

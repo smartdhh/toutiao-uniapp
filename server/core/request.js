@@ -1,6 +1,6 @@
 const request = require('request');
 const URI = require('urijs')
-const rootRequest = function(url, params, method = 'get') {
+const rootRequest = function(url, params={}, method = 'get') {
 	if (method === 'get') {
 		url = new URI(url).addQuery(params).toString();
 	}

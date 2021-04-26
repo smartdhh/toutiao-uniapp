@@ -9,3 +9,7 @@ export let homeUrl = {
 	news: `${rootPrefix}home/info`,
 	video: `${rootPrefix}home/video`
 }
+
+export let searchUrl = {
+	info: `${rootPrefix}search/info`
+}

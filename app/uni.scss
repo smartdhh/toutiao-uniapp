@@ -88,3 +88,8 @@ $base-red-color: #e84548;
 	align-items: center;
 }
 
+@mixin text-ellipsis {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}

@@ -8,6 +8,7 @@
 		onShow: function() {},
 		onHide: function() {}
 	}
+
 </script>
 
 <style lang="scss">
@@ -20,7 +21,7 @@
 
 	.page {
 		padding: 180upx 30upx 20upx;
-		//#ifdef  APP-PLUS
+		//#ifdef  APP-PLUS || MP-WEIXIN
 		padding-top: 230upx;
 		//#endif
 	}
@@ -35,9 +36,7 @@
 	}
 
 	.text-ellipsis {
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+		@include text-ellipsis;
 	}
 
 	.commsg {
