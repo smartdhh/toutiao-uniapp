@@ -4,7 +4,8 @@ module.exports = [{
 		// http配置
 		http: {
 			getSendData: async (req, res, next) => {
-				let data = await pcCommonRequest('__all__');
+				let category = req.query.category || "__all__";
+				let data = await pcCommonRequest(category);
 				return data;
 			},
 		},

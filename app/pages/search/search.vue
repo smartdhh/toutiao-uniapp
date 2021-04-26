@@ -1,6 +1,6 @@
 <template>
-	<view class="search">
-		<view class="search-body">
+	<view class="search page-nocategory">
+		<view class="search-body page-header">
 			<com-back></com-back>
 			<view class="search-content">
 				<view class="iconfont iconsearch"></view>
@@ -23,9 +23,6 @@
 				<view v-for="item,index in localList" :key="index">
 					<view v-if="item.isding" class="iconfont icontuding"></view>
 					<view class="inner-text">{{item.word}}</view>
-				</view>
-				<view>
-					<view>钓鱼城</view>
 				</view>
 			</view>
 		</view>
@@ -112,17 +109,17 @@
 
 <style lang="scss">
 	.search {
-		padding: 20upx 30upx;
-		//#ifdef  APP-PLUS || MP-WEIXIN
-		padding-top: 60upx;
-		//#endif
 
 		.search-body {
+			position: fixed;
+			width: 100%;
+			top: 0;
+			left: 0;
 			@include flex-between;
 
 			.search-content {
 				background-color: #f2f2f2;
-				padding: 16upx 20upx;
+				padding: 16upx 24upx;
 				border-radius: 40upx;
 				flex-grow: 1;
 				display: flex;
@@ -131,6 +128,11 @@
 
 				.iconsearch {
 					padding-right: 20upx;
+					font-size: 28upx;
+				}
+
+				input {
+					font-size: 28upx;
 				}
 			}
 		}

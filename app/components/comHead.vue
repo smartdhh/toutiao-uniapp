@@ -1,6 +1,6 @@
 <template>
 	<view class="comhead">
-		<view class="search" @tap="onSwitchSearch">
+		<view class="search page-header" @tap="onSwitchSearch">
 			<view class="search-content">
 				<view class="iconfont iconsearch"></view>
 				<view>房贷多长时间能批下来</view>
@@ -27,7 +27,8 @@
 		},
 		methods: {
 			onSwitchCategory(item, index) {
-				this.currentIndex = index
+				this.currentIndex = index;
+				this.$emit('onChangeCategory', item, index);
 			},
 			onSwitchSearch() {
 				uni.navigateTo({
@@ -50,23 +51,18 @@
 
 		.search {
 			font-size: 28upx;
-			padding: 10upx 30upx;
 			background-image: linear-gradient(to right, $base-red-color, #e75345);
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			//#ifdef  APP-PLUS || MP-WEIXIN
-			padding-top: 60upx;
-			//#endif
 
 			.search-content {
 				display: flex;
 				flex-grow: 1;
 				flex-shrink: 1;
-				padding: 20upx 24upx;
+				padding: 16upx 24upx;
 				background-color: white;
 				border-radius: 40upx;
-				line-height: 100%;
 				align-items: center;
 
 				.iconfont {

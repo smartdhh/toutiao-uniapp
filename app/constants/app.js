@@ -1,7 +1,6 @@
 export const homeCategory = [
 	{ "key": "key-0", "name": "推荐", "category": "main" },
 	{ "key": "key-2", "name": "热点", "category": "news_hot" },
-	{ "key": "key-4", "name": "图片", "category": "news_image" },
 	{ "key": "key-5", "name": "科技", "category": "news_tech" },
 	{ "key": "key-6", "name": "娱乐", "category": "news_entertainment" },
 	{ "key": "key-7", "name": "游戏", "category": "news_game" },

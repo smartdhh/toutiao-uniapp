@@ -20,9 +20,23 @@
 	}
 
 	.page {
-		padding: 180upx 30upx 20upx;
+		padding: 190upx 30upx 20upx;
 		//#ifdef  APP-PLUS || MP-WEIXIN
-		padding-top: 230upx;
+		padding-top: 240upx;
+		//#endif
+	}
+
+	.page-nocategory {
+		padding: 80upx 30upx 20upx;
+		//#ifdef  APP-PLUS || MP-WEIXIN
+		padding-top: 140upx;
+		//#endif
+	}
+
+	.page-header {
+		padding: 20upx 30upx 10upx;
+		//#ifdef  APP-PLUS || MP-WEIXIN
+		padding-top: 70upx;
 		//#endif
 	}
 

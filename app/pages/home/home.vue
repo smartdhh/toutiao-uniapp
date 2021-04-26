@@ -1,6 +1,6 @@
 <template>
 	<view class="home">
-		<com-head :category="category"></com-head>
+		<com-head :category="category" @onChangeCategory="onChangeCategory"></com-head>
 		<view class="page">
 			<template v-for="item,index in newsList">
 				<!-- 此处调用头条接口返回数据，显示类型按照规则生成 -->
@@ -30,6 +30,7 @@
 		data() {
 			return {
 				newsList: [],
+				searchParams: {},
 				category: homeCategory
 			};
 		},
@@ -56,7 +57,7 @@
 		},
 		methods: {
 			onGetPageData(isreset) {
-				getJsonData(homeUrl.news).then(resp => {
+				getJsonData(homeUrl.news, this.searchParams).then(resp => {
 					if (isreset) {
 						this.newsList = resp;
 						uni.stopPullDownRefresh();
@@ -65,10 +66,15 @@
 					}
 				})
 			},
+			onChangeCategory(item, index) {
+				this.searchParams = { category: item.category };
+				uni.startPullDownRefresh();
+			},
 			onGetMoreVideoData() {},
 		}
 	}
 
 </script>
 <style lang="scss">
+
 </style>

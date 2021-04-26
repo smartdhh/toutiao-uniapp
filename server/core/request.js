@@ -1,8 +1,11 @@
 const request = require('request');
-const URI = require('urijs')
-const rootRequest = function(url, params={}, method = 'get') {
+const URI = require('urijs');
+const { readLocalFileData } = require('./localdata.js');
+
+const rootRequest = function(url, params = {}, method = 'get') {
+	var uri = new URI(url);
 	if (method === 'get') {
-		url = new URI(url).addQuery(params).toString();
+		url = uri.addQuery(params).toString();
 	}
 	return new Promise((resolve, reject) => {
 		var option = {
@@ -17,7 +20,7 @@ const rootRequest = function(url, params={}, method = 'get') {
 		}
 		request(option, function(error, response, body) {
 			if (!error && response.statusCode == 200) {
-				resolve(body)
+				resolve(body || readLocalFileData(uri.pathname()));
 			} else {
 				reject(error);
 			}
@@ -28,6 +31,8 @@ const rootRequest = function(url, params={}, method = 'get') {
 const getJsonData = function(url, params) {
 	return rootRequest(url, params);
 }
+
+//readLocalFileData('home/info.json');
 
 module.exports = {
 	getJsonData
