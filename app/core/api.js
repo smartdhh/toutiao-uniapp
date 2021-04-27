@@ -1,4 +1,4 @@
-export function getJsonData(url, data) {
+export function getJsonBody(url, data) {
 	return uni.request({ url, data }).then(data => {
 		var [error, res] = data;
 		if (error) {
@@ -7,7 +7,7 @@ export function getJsonData(url, data) {
 		} else {
 			let { code, body, msg } = res.data;
 			if (code === 200) {
-				return body.data;
+				return body;
 			} else {
 				uni.showToast({
 					icon: 'none',
@@ -18,4 +18,10 @@ export function getJsonData(url, data) {
 			}
 		}
 	})
+
+}
+
+
+export function getJsonData(url, data) {
+	return getJsonBody(url, data).then(resp => resp.data);
 }

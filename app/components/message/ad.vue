@@ -1,5 +1,5 @@
 <template>
-	<view class="commsg">
+	<view class="commsg" @click="onSwitchDetail(info)">
 		<view class="commsgheader">
 			<image :src="info.media_avatar_url"></image>
 			<view class="info">
@@ -24,20 +24,25 @@
 	</view>
 </template>
 <script>
+	import { switchDetailPage } from "@/core/app.js";
+
 	export default {
 		props: { info: { default: () => ({}) } },
 		data() {
 			return {};
 		},
 		methods: {
-			onSwitchCategory(item, index) {
-				this.currentIndex = index
+			onSwitchDetail(item) {
+				console.log(item.item_id);
+				switchDetailPage(item)
 			}
 		}
 	}
+
 </script>
 <style lang="scss">
 	.admsg {
 		padding: 30upx 0;
 	}
+
 </style>

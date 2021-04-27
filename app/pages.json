@@ -49,6 +49,15 @@
 				},
 				"enablePullDownRefresh": false //开启该页面下拉刷新
 			}
+		}, {
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"app-plus": {
+					"titleNView": false // 禁用原生导航栏
+				},
+				"enablePullDownRefresh": false //开启该页面下拉刷新
+			}
 		}
 	],
 	"globalStyle": {

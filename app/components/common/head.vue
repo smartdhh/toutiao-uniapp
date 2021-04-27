@@ -49,6 +49,10 @@
 		left: 0;
 		z-index: 20;
 
+		.page-header{
+			position: static;
+		}
+
 		.search {
 			font-size: 28upx;
 			background-image: linear-gradient(to right, $base-red-color, #e75345);

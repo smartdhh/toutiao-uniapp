@@ -1,0 +1,32 @@
+.detail-content {}
+
+.detail-content * {
+	text-decoration: none;
+	font-size: 32upx;
+	line-height: 150%;
+}
+
+.detail-content img {
+	width: 100%;
+}
+
+.detail-content hr {
+	margin: 20upx 0;
+}
+
+.detail-content p {
+	padding-bottom: 10upx;
+}
+
+.detail-content h1 strong {
+	font-size: 40upx;
+	padding-top: 20upx;
+	padding-bottom: 20upx;
+	display: block;
+}
+
+.detail-content .pgc-img-caption {
+	font-size: 24upx;
+	text-align: center;
+	color: silver;
+}

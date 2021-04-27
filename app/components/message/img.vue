@@ -1,5 +1,5 @@
 <template>
-	<view class="commsg imgmsg">
+	<view class="commsg imgmsg" @click="onSwitchDetail(info)">
 		<view class="title">{{info.title}}</view>
 		<view v-if="Math.random()>0.8" class="sub-title">{{info.abstract}}</view>
 		<view class="preview">
@@ -12,6 +12,7 @@
 	</view>
 </template>
 <script>
+	import { switchDetailPage } from "@/core/app.js";
 	import { publishAgoFilter, countStrFilter } from "@/filters/app.js";
 	export default {
 		props: { info: { default: () => ({}) } },
@@ -22,8 +23,8 @@
 			countStrFilter
 		},
 		methods: {
-			onSwitchCategory(item, index) {
-				this.currentIndex = index
+			onSwitchDetail(item) {
+				switchDetailPage(item)
 			}
 		}
 	}

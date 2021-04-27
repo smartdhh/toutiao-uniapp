@@ -14,6 +14,7 @@
 <style lang="scss">
 	/* 此处在app中可能会有问题，需要引入https:// */
 	@import "./static/css/iconfont.css";
+	@import "./static/css/detail.css";
 
 	* {
 		box-sizing: border-box;
@@ -34,10 +35,25 @@
 	}
 
 	.page-header {
+		position: fixed;
+		width: 100%;
+		top: 0;
+		left: 0;
+		z-index: 10;
+		background-color: white;
+		@include flex-between;
 		padding: 20upx 30upx 10upx;
 		//#ifdef  APP-PLUS || MP-WEIXIN
 		padding-top: 70upx;
 		//#endif
+	}
+
+	.page-footer {
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		position: fixed;
+		z-index: 10;
 	}
 
 	.flex-between {

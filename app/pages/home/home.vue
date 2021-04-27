@@ -16,7 +16,7 @@
 	</view>
 </template>
 <script>
-	import comHead from "@/components/comHead.vue";
+	import comHead from "@/components/common/head.vue";
 	import adMsg from "@/components/message/ad.vue";
 	import hotMsg from "@/components/message/hot.vue";
 	import imgMsg from "@/components/message/img.vue";

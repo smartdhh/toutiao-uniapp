@@ -13,3 +13,9 @@ export let homeUrl = {
 export let searchUrl = {
 	info: `${rootPrefix}search/info`
 }
+
+export let detailUrl = {
+	info: `${rootPrefix}detail/info`,
+	comments: `${rootPrefix}detail/comments`,
+	ralation: `${rootPrefix}detail/relation`,
+}

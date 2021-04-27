@@ -8,7 +8,7 @@
 </template>
 
 <script>
-	import comHead from "@/components/comHead.vue";
+	import comHead from "@/components/common/head.vue";
 	import comVideo from "@/components/video/com.vue";
 	import { homeUrl } from "@/constants/url.js";
 	import { getJsonData } from "@/core/api.js";

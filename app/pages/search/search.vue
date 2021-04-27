@@ -49,7 +49,7 @@
 </template>
 
 <script>
-	import comBack from "@/components/comBack.vue";
+	import comBack from "@/components/common/back.vue";
 	import { searchUrl } from "@/constants/url.js";
 	import { getJsonData } from "@/core/api.js";
 	import { SEARCH_LOCAL_KEY } from "@/constants/app.js";
@@ -111,12 +111,6 @@
 	.search {
 
 		.search-body {
-			position: fixed;
-			width: 100%;
-			top: 0;
-			left: 0;
-			@include flex-between;
-
 			.search-content {
 				background-color: #f2f2f2;
 				padding: 16upx 24upx;
