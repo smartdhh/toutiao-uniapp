@@ -18,6 +18,7 @@ const rootRequest = function(url, params = {}, method = 'get') {
 			},
 			body: params
 		}
+		console.log(url);
 		request(option, function(error, response, body) {
 			if (!error && response.statusCode == 200) {
 				// 如果body不存在，则启用本地模拟数据
