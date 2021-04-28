@@ -75,11 +75,26 @@ const commentsInfoRequest = function(params) {
 	return getJsonData(toutiaoUrl.comments, params);
 }
 
+// 视频详情数据接口
+const videoInfoRequest = function(params) {
+	let tempparams = {
+		r: '013226774944979036', // 随着videoid变化
+		s: '2488558522', // 随着videoid变化
+		aid: '1217',
+		nobase64: 'true',
+		vfrom: 'xgplayer',
+		_: '1619600782546',
+		callback: ''
+	}
+	return getJsonData(toutiaoUrl.videodetail(params.videoid), tempparams);
+}
+
 module.exports = {
 	searchCommonRequest,
 	mobileCommonRequest,
 	pcCommonRequest,
 	detailInfoRequest,
 	commentsInfoRequest,
-	detailRelationRequest
+	detailRelationRequest,
+	videoInfoRequest
 }

@@ -34,6 +34,23 @@
 		//#endif
 	}
 
+	.page-videopage{		
+		padding-top: 580upx;
+		//#ifdef  APP-PLUS || MP-WEIXIN
+		padding-top: 640upx;
+		//#endif
+	}
+
+	.page-videomain {
+		top: 0;
+		background-color: black;
+		padding-top:0 ;
+		//#ifdef  APP-PLUS || MP-WEIXIN
+		padding-top: 60upx;
+		//#endif
+	}
+	
+
 	.page-header {
 		position: fixed;
 		width: 100%;

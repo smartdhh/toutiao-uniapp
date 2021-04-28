@@ -33,7 +33,6 @@
 		},
 		methods: {
 			onSwitchDetail(item) {
-				console.log(item.item_id);
 				switchDetailPage(item)
 			}
 		}

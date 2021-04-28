@@ -50,9 +50,23 @@
 				"enablePullDownRefresh": false //开启该页面下拉刷新
 			}
 		}, {
-			"path": "pages/detail/detail",
+			"path": "pages/detail/text",
 			"style": {
-				"navigationBarTitleText": "我的",
+				"navigationBarTitleText": "",				
+				"navigationBarTextStyle": "black",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false // 禁用原生导航栏
+				},
+				"enablePullDownRefresh": false //开启该页面下拉刷新
+			}
+		}, {
+			"path": "pages/detail/video",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom",
+				"navigationBarBackgroundColor":"#000000",
 				"app-plus": {
 					"titleNView": false // 禁用原生导航栏
 				},

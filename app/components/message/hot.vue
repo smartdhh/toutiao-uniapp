@@ -1,5 +1,5 @@
 <template>
-	<view class="commsg hotmsg">
+	<view class="commsg hotmsg" @click="onSwitchDetail(info)">
 		<view class="hotheader">
 			<view class="tag">热榜</view>
 			<view class="title">今日热门事件</view>
@@ -21,20 +21,23 @@
 </template>
 <script>
 	import { publishAgoFilter, countStrFilter } from "@/filters/app.js";
+
+	import { switchDetailPage } from "@/core/app.js";
 	export default {
 		props: { info: { default: () => ({}) } },
 		data() {
 			return {};
 		},
-		filters:{
+		filters: {
 			countStrFilter
 		},
 		methods: {
-			onSwitchCategory(item, index) {
-				this.currentIndex = index
+			onSwitchDetail(item) {
+				switchDetailPage(item)
 			}
 		}
 	}
+
 </script>
 <style lang="scss">
 	.hotmsg {
@@ -57,4 +60,5 @@
 			}
 		}
 	}
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<view class="commsg uppermsg">
+	<view class="commsg uppermsg" @click="onSwitchDetail(info)">
 		<view class="title">
 			{{info.title}}
 		</view>
@@ -11,14 +11,16 @@
 	</view>
 </template>
 <script>
+	
+		import { switchDetailPage } from "@/core/app.js";
 	export default {
 		props: { info: { default: () => ({}) }, isupper: { default: false } },
 		data() {
 			return {};
 		},
 		methods: {
-			onSwitchCategory(item, index) {
-				this.currentIndex = index
+			onSwitchDetail(item) {
+				switchDetailPage(item)
 			}
 		}
 	}

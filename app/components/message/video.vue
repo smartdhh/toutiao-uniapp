@@ -1,5 +1,5 @@
 <template>
-	<view class="commsg videomsg">
+	<view class="commsg videomsg" @click="onSwitchDetail(info)">
 		<view class="commsgheader" v-if="Math.random()>0.8">
 			<image :src="info.media_avatar_url"></image>
 			<view class="info">
@@ -26,6 +26,7 @@
 </template>
 <script>
 	import { publishAgoFilter, countStrFilter, imgSrcFilter } from "@/filters/app.js";
+	import { switchDetailPage } from "@/core/app.js";
 	export default {
 		props: { info: { default: () => ({}) } },
 		data() {
@@ -37,8 +38,8 @@
 			countStrFilter
 		},
 		methods: {
-			onSwitchCategory(item, index) {
-				this.currentIndex = index
+			onSwitchDetail(item) {
+				switchDetailPage(item,'video')
 			}
 		}
 	}

@@ -9,6 +9,9 @@ const toutiaoUrl = {
 	relation: function(itemID) {
 		return `https://m.toutiao.com/related/open/${itemID}/`
 	},
+	videodetail: function(videoid) {
+		return `https://ib.365yg.com/video/urls/v/1/toutiao/mp4/${videoid}`
+	}
 };
 module.exports = {
 	toutiaoUrl

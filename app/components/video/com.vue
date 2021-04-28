@@ -1,5 +1,5 @@
 <template>
-	<view class="commsg videomsg videocom">
+	<view class="commsg videomsg videocom" @click="onSwitchDetail(info)">
 		<view class="commsgheader">
 			<view>
 				<image :src="info.media_info && info.media_info.avatar_url"></image>
@@ -27,6 +27,7 @@
 </template>
 <script>
 	import { publishAgoFilter, countStrFilter, imgSrcFilter, videoLengthFilter } from "@/filters/app.js";
+	import { switchDetailPage } from "@/core/app.js";
 	export default {
 		props: { info: { default: () => ({}) } },
 		data() {
@@ -38,7 +39,11 @@
 			countStrFilter,
 			videoLengthFilter
 		},
-		methods: {}
+		methods: {
+			onSwitchDetail(item) {
+				switchDetailPage(item, 'video')
+			}
+		}
 	}
 
 </script>

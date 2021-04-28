@@ -1,5 +1,5 @@
 <template>
-	<view class="comavatar">
+	<view :class="['comavatar',classname]">
 		<image :src="info.media_avatar_url"></image>
 		<view class="info">
 			<view class="name">{{info.source}}</view>
@@ -10,7 +10,7 @@
 <script>
 	import { publishAgoFilter, countStrFilter } from "@/filters/app.js";
 	export default {
-		props: { info: { default: () => ({}) } },
+		props: { info: { default: () => ({}) }, classname: { default: '' } },
 		data() {
 			return {};
 		},

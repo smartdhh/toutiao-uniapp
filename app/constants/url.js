@@ -19,3 +19,7 @@ export let detailUrl = {
 	comments: `${rootPrefix}detail/comments`,
 	ralation: `${rootPrefix}detail/relation`,
 }
+
+export let videoUrl = {
+	info: `${rootPrefix}video/info`
+}
