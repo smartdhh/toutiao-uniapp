@@ -28,13 +28,13 @@
 	}
 
 	.page-nocategory {
-		padding: 80upx 30upx 20upx;
+		padding: 100upx 30upx 20upx;
 		//#ifdef  APP-PLUS || MP-WEIXIN
-		padding-top: 140upx;
+		padding-top: 160upx;
 		//#endif
 	}
 
-	.page-videopage{		
+	.page-videopage {
 		padding-top: 580upx;
 		//#ifdef  APP-PLUS || MP-WEIXIN
 		padding-top: 640upx;
@@ -44,12 +44,12 @@
 	.page-videomain {
 		top: 0;
 		background-color: black;
-		padding-top:0 ;
+		padding-top: 0;
 		//#ifdef  APP-PLUS || MP-WEIXIN
 		padding-top: 60upx;
 		//#endif
 	}
-	
+
 
 	.page-header {
 		position: fixed;

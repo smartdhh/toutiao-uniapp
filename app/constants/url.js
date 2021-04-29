@@ -11,7 +11,8 @@ export let homeUrl = {
 }
 
 export let searchUrl = {
-	info: `${rootPrefix}search/info`
+	info: `${rootPrefix}search/info`,
+	sug: `${rootPrefix}search/sug`
 }
 
 export let detailUrl = {

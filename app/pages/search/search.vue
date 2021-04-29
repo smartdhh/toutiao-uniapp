@@ -1,50 +1,62 @@
 <template>
 	<view class="search page-nocategory">
 		<view class="search-body page-header">
-			<com-back></com-back>
+			<com-back @click="onBackClick"></com-back>
 			<view class="search-content">
 				<view class="iconfont iconsearch"></view>
-				<input type="text" placeholder="房贷多长时间能批下来" />
+				<input type="text" placeholder="房贷多长时间能批下来" @focus="onChangeInputResPop(true)" @input="onChangeInput" @confirm="" confirm-type="search" />
 			</view>
 			<view class="search-btn">搜索</view>
 		</view>
-		<view class="result-content up-content" v-show="isShowServer">
-			<view v-for="item,index in upList" :key="index">
-				<view>{{item.word}}</view>
-			</view>
-		</view>
-		<view>
-			<view class="contentheader localheader">
-				<view @click="onSwitchLocalView()">搜索历史</view>
-				<view class="iconfont icondown"></view>
-				<view class="iconfont icondelete" v-show="localList.length" @click="onClearLocalSearch()"></view>
-			</view>
-			<view class="result-content" v-show="isShowLocal">
-				<view v-for="item,index in localList" :key="index">
-					<view v-if="item.isding" class="iconfont icontuding"></view>
-					<view class="inner-text">{{item.word}}</view>
+		<view class="search-input-result" v-show="isShowInputRes">
+			<view v-for="item,index in inputRes" :key="index" class="search-input-result-item" @click="onShowSearchDetail(item.keyword)">
+				<view class="flex-between">
+					<view class="iconfont iconsearch"></view>
+					<view>{{item.keyword}}</view>
 				</view>
+				<view class="iconfont iconlefttop"></view>
 			</view>
 		</view>
-		<view>
-			<view class="contentheader" v-show="isShowServer">
-				<view>猜你喜欢</view>
-				<view class="iconfont iconunsee" @click="onSwitchShowServer"></view>
-			</view>
-			<view class="contentheader viewallcontent" v-show="!isShowServer">
-				<view class="iconfont iconsee"></view>
-				<view @click="onSwitchShowServer">查看全部推荐</view>
-			</view>
-			<view class="result-content favor-content" v-show="isShowServer">
-				<view v-for="item,index in favorList" :key="index">
+		<view class="search-default-result" v-show="isShowDefaultRes">
+			<view class="result-content up-content" v-show="isShowServer">
+				<view v-for="item,index in upList" :key="index" @click="onShowSearchDetail(item.word)">
 					<view>{{item.word}}</view>
 				</view>
 			</view>
+			<view>
+				<view class="contentheader localheader">
+					<view @click="onSwitchLocalView()">搜索历史</view>
+					<view class="iconfont icondown"></view>
+					<view class="iconfont icondelete" v-show="localList.length" @click="onClearLocalSearch()"></view>
+				</view>
+				<view class="result-content" v-show="isShowLocal">
+					<view v-for="item,index in localList" :key="index" @click="onShowSearchDetail(item.word)">
+						<view v-if="item.isding" class="iconfont icontuding"></view>
+						<view class="inner-text">{{item.word}}</view>
+					</view>
+				</view>
+			</view>
+			<view>
+				<view class="contentheader" v-show="isShowServer">
+					<view>猜你喜欢</view>
+					<view class="iconfont iconunsee" @click="onSwitchShowServer"></view>
+				</view>
+				<view class="contentheader viewallcontent" v-show="!isShowServer">
+					<view class="iconfont iconsee"></view>
+					<view @click="onSwitchShowServer">查看全部推荐</view>
+				</view>
+				<view class="result-content favor-content" v-show="isShowServer">
+					<view v-for="item,index in favorList" :key="index" @click="onShowSearchDetail(item.word)">
+						<view>{{item.word}}</view>
+					</view>
+				</view>
+			</view>
+			<view class="search-footer">
+				<view>无恒模式</view>
+				<switch @change="onSwitchMark"></switch>
+			</view>
 		</view>
-		<view class="search-footer">
-			<view>无恒模式</view>
-			<switch @change="onSwitchMark"></switch>
-		</view>
+		<web-view :webview-styles="webviewStyles" :src="searchDetailSrc" v-if="isShowSearchDetail" class="webview"></web-view>
 	</view>
 </template>
 
@@ -59,8 +71,17 @@
 			return {
 				isShowServer: true,
 				isShowLocal: true,
+				isShowInputResPop: false,
+				isShowSearchDetail: false,
+				searchDetailSrc: 'https://so.toutiao.com/search',
+				inputRes: [],
 				upList: [],
 				favorList: [],
+				timeoutID: 0,
+				webviewStyles: {
+					height: '100%',
+					width: '100%'
+				},
 				localList: [
 					{ word: '公积金贷款后因离职是否能够继续使用公积金还贷', isding: true },
 					{ word: '钓鱼城' },
@@ -86,9 +107,42 @@
 		components: {
 			comBack
 		},
+		computed: {
+			isShowInputRes() {
+				return this.isShowInputResPop && this.inputRes.length && !this.isShowSearchDetail;
+			},
+			isShowDefaultRes() {
+				return !this.isShowInputRes && !this.isShowSearchDetail;
+			}
+		},
 		methods: {
-			onSwitchBack() {
-				uni.navigateBack()
+			getSeachSugList(value) {
+				getJsonData(searchUrl.sug, { keyword: value }).then(resp => {
+					this.inputRes = resp;
+				})
+			},
+			onShowSearchDetail(keyword) {
+				this.searchDetailSrc = "https://so.toutiao.com/search?keyword=" + keyword;
+				this.isShowSearchDetail = true;
+			},
+			onBackClick() {
+				if (this.isShowInputRes) {
+					this.onChangeInputResPop(false)
+				} else if (this.isShowSearchDetail) {
+					this.isShowSearchDetail = false;
+				} else {
+					uni.navigateBack()
+				}
+			},
+			onChangeInput(e) {
+				let value = e.target.value;
+				if (this.timeoutID) {
+					clearTimeout(this.timeoutID);
+				}
+				this.timeoutID = setTimeout(() => this.getSeachSugList(value), 300)
+			},
+			onChangeInputResPop(value) {
+				this.isShowInputResPop = value;
 			},
 			onSwitchMark(e) {
 				console.log('switch1 发生 change 事件，携带值为', e.target.value)
@@ -109,6 +163,34 @@
 
 <style lang="scss">
 	.search {
+		min-height: 100vh;
+
+		.webview {
+			top: -30upx;
+		}
+
+		.search-input-result {
+			background: white;
+			width: 100%;
+			height: 100%;
+			padding-top: 40upx;
+
+			.search-input-result-item {
+				@include flex-between;
+				padding-bottom: 20upx;
+				margin-bottom: 20upx;
+				border-bottom: 1px solid $base-silver-color;
+
+				.iconfont {
+					font-size: 24upx;
+					color: silver;
+				}
+
+				.iconsearch {
+					margin-right: 20upx;
+				}
+			}
+		}
 
 		.search-body {
 			.search-content {

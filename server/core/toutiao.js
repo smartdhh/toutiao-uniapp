@@ -47,8 +47,13 @@ const mobileCommonRequest = function(category) {
 }
 
 // search关键字请求接口
-const searchCommonRequest = function(category) {
+const searchCommonRequest = function() {
 	return getJsonData(toutiaoUrl.search);
+}
+
+// search关键字关联接口请求接口
+const searchSugRequest = function(keyword = '') {
+	return getJsonData(toutiaoUrl.search_sug, { keyword });
 }
 
 // 详情数据接口
@@ -96,5 +101,6 @@ module.exports = {
 	detailInfoRequest,
 	commentsInfoRequest,
 	detailRelationRequest,
-	videoInfoRequest
+	videoInfoRequest,
+	searchSugRequest
 }

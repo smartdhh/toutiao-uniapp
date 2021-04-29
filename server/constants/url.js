@@ -2,6 +2,7 @@ const toutiaoUrl = {
 	pc: 'https://www.toutiao.com/api/pc/feed/',
 	mobile: 'https://m.toutiao.com/list/',
 	search: 'https://so.toutiao.com/search/suggest/initial_page',
+	search_sug:'https://so.toutiao.com/2/article/search_sug/',
 	detail: function(itemID) {
 		return `https://m.toutiao.com/i${itemID}/info/v2/`
 	},

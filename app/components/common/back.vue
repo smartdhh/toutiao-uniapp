@@ -12,7 +12,12 @@
 		props: { classname: { default: '' } },
 		methods: {
 			onSwitchBack() {
-				uni.navigateBack()
+				// 如果父组件传递了click方法则调用父组件
+				if (this.$listeners['click']) {
+					this.$emit('click');
+				} else {
+					uni.navigateBack();
+				}
 			}
 		}
 	}
