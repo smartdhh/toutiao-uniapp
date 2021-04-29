@@ -122,8 +122,11 @@
 				})
 			},
 			onShowSearchDetail(keyword) {
-				this.searchDetailSrc = "https://so.toutiao.com/search?keyword=" + keyword;
-				this.isShowSearchDetail = true;
+				// this.searchDetailSrc = "https://so.toutiao.com/search?keyword=" + keyword;
+				// this.isShowSearchDetail = true;
+				uni.navigateTo({
+					url: '/pages/search/webview?keyword=' + keyword
+				});
 			},
 			onBackClick() {
 				if (this.isShowInputRes) {

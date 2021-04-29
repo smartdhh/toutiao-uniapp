@@ -11,6 +11,7 @@ export let homeUrl = {
 }
 
 export let searchUrl = {
+	toutaio: 'https://so.toutiao.com/search?keyword=',
 	info: `${rootPrefix}search/info`,
 	sug: `${rootPrefix}search/sug`
 }
