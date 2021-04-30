@@ -1,5 +1,18 @@
-const { detailInfoRequest, commentsInfoRequest, detailRelationRequest, videoInfoRequest } = require('../core/toutiao.js')
+const { videoInfoRequest } = require('../core/toutiao.js')
+const { videoListRequest } = require('../core/xigua.js')
 module.exports = [{
+	path: "/list",
+	// http配置
+	http: {
+		getSendData: async (req, res, next) => {
+			let category = req.query.category;
+			let categoryid = req.query.categoryid;
+			//let data = await mobileCommonRequest('video');
+			let data = await videoListRequest({ category, categoryid });
+			return data;
+		},
+	},
+}, {
 	path: "/info",
 	// http配置
 	http: {

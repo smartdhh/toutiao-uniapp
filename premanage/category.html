@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var html =
+			`<ul id="content" style="transform: translateX(0px);"><li class="xigua-channel" id="94349555027" name="default">推荐</li><li class="xigua-channel active" id="94349533351" name="vlog">VLOG</li><li class="xigua-channel" id="6141508391" name="food">美食</li><li class="xigua-channel" id="94349531488" name="made">手工</li><li class="xigua-channel" id="61887739390" name="agriculture">农人</li><li class="xigua-channel" id="61887739345" name="variety">综艺</li><li class="xigua-channel" id="61887739369" name="funny">搞笑</li><li class="xigua-channel" id="61887739368" name="music">音乐</li><li class="xigua-channel" id="6141508395" name="child">儿童</li><li class="xigua-channel" id="61887739376" name="game">游戏</li><li class="xigua-channel" id="94349530916" name="nba">NBA</li><li class="xigua-channel" id="6141508406" name="pet">宠物</li></ul>`
+		var matchs = html.match(/<li.*?li>/g)
+		var result = matchs.map((item, index) => {
+			var curmatch = item.match(/<li.*? id="(.*?)" name="(.*?)">(.*?)<\/li>/);
+			return { "key": "key-" + index, "name": curmatch[3], "category": curmatch[2],"categoryid":curmatch[1] }
+		})
+		console.log(JSON.stringify(result))
+
+	</script>
+</html>

@@ -9,15 +9,5 @@ module.exports = [{
 				return data;
 			},
 		},
-	},
-	{
-		path: "/video",
-		// http配置
-		http: {
-			getSendData: async (req, res, next) => {
-				let data = await mobileCommonRequest('video');
-				return data;
-			},
-		},
-	},
+	}
 ];

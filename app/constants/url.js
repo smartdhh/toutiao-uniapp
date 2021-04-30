@@ -6,8 +6,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export let homeUrl = {
-	news: `${rootPrefix}home/info`,
-	video: `${rootPrefix}home/video`
+	news: `${rootPrefix}home/info`
 }
 
 export let searchUrl = {
@@ -23,5 +22,6 @@ export let detailUrl = {
 }
 
 export let videoUrl = {
+	list: `${rootPrefix}video/list`,
 	info: `${rootPrefix}video/info`
 }
