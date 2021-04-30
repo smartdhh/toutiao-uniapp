@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<com-head :category="category" @onChangeCategory="onChangeCategory"></com-head>
-		<view class="page">
+		<view class="page video-page">
 			<com-video v-for="item,index in movieList" :info="item" :key="index"></com-video>
 		</view>
 	</view>
@@ -69,5 +69,11 @@
 </script>
 
 <style lang="scss">
+	.video-page {
+		padding-left: 0;
+		padding-right: 0;
+		background-color: $base-silver-color;
+		margin-top: -20upx;
+	}
 
 </style>

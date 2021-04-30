@@ -1,5 +1,12 @@
 <template>
 	<view class="commsg videomsg videocom" @click="onSwitchDetail(info)">
+		<view class="preview">
+			<view class="title text-ellipsis">{{info.title}}</view>
+			<image :src="info | imgSrcFilter" mode="widthFix"></image>
+			<view class="iconfont iconvideo"></view>
+			<view class="time">{{info.video_duration | videoLengthFilter}}</view>
+			<view class="count">{{info.video_detail_info? info.video_detail_info.video_watch_count:parseInt(Math.random()*100000) | countStrFilter}}次</view>
+		</view>
 		<view class="commsgheader">
 			<view>
 				<image :src="info.media_info && info.media_info.avatar_url"></image>
@@ -15,13 +22,6 @@
 				</view>
 				<view class="iconfont iconmore"></view>
 			</view>
-		</view>
-		<view class="preview">
-			<view class="title text-ellipsis">{{info.title}}</view>
-			<image :src="info | imgSrcFilter" mode="widthFix"></image>
-			<view class="iconfont iconvideo"></view>
-			<view class="time">{{info.video_duration | videoLengthFilter}}</view>
-			<view class="count">{{info.video_detail_info? info.video_detail_info.video_watch_count:parseInt(Math.random()*100000) | countStrFilter}}次</view>
 		</view>
 	</view>
 </template>
@@ -49,10 +49,13 @@
 </script>
 <style lang="scss">
 	.videocom {
+		padding: 0;
+		margin-bottom: 10upx;
+		background-color: white;
 		.commsgheader {
 			display: flex;
 			justify-content: space-between;
-			padding: 0 20upx 20upx;
+			padding:10upx 20upx 20upx;
 
 			&>view {
 				display: flex;
