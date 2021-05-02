@@ -1,8 +1,12 @@
-let rootPrefix = 'http://192.168.43.72:3203/'
+let rootPrefix = 'http://192.168.1.6:3203/'
+
+//#ifdef  APP-PLUS
+rootPrefix = 'https://dev.cloudmtm.com:4450/'
+//#endif
 
 // 如果是生产环境则切换到https访问
 if (process.env.NODE_ENV === 'production') {
-	rootPrefix = 'https://dev.cloudmtm.com:4449/'
+	rootPrefix = 'https://dev.cloudmtm.com:4450/'
 }
 
 export let homeUrl = {

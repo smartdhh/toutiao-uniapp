@@ -20,7 +20,7 @@ function normalizePort(val) {
 }
 
 // 监听错误
-function onError(error) {
+function onError(error,port) {
     if (error.syscall !== "listen") {
         throw error;
     }

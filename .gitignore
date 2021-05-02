@@ -39,3 +39,6 @@ yarn-error.log*
 
 wechat-info.json
 .hbuilderx/
+
+# 同步本地模拟环境
+update.sh
