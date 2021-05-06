@@ -1,6 +1,6 @@
-let rootPrefix = 'http://192.168.1.6:3203/'
+let rootPrefix = 'http://192.168.43.72:3203/'
 
-//#ifdef  APP-PLUS
+//#ifdef APP-PLUS
 rootPrefix = 'https://dev.cloudmtm.com:4450/'
 //#endif
 

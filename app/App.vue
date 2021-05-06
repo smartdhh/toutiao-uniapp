@@ -1,10 +1,6 @@
 <script>
 	export default {
-		onLaunch: function() {
-			uni.getSystemInfo({
-				success(e) {}
-			});
-		},
+		onLaunch: function() {},
 		onShow: function() {},
 		onHide: function() {}
 	}
@@ -19,16 +15,16 @@
 	* {
 		box-sizing: border-box;
 	}
-
+	
 	.page {
-		padding: 190upx 30upx 20upx;
+		padding: 190upx 30upx 100upx;
 		//#ifdef  APP-PLUS || MP-WEIXIN
 		padding-top: 240upx;
 		//#endif
 	}
 
 	.page-nocategory {
-		padding: 100upx 30upx 20upx;
+		padding: 100upx 30upx 60upx;
 		//#ifdef  APP-PLUS || MP-WEIXIN
 		padding-top: 160upx;
 		//#endif

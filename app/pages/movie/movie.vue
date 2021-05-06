@@ -1,11 +1,13 @@
 <template>
 	<view>
 		<com-head :category="category"></com-head>
+		<tab-bar activeKey="movie"></tab-bar>
 	</view>
 </template>
 
 <script>
 	import comHead from "@/components/common/head.vue";
+	import tabBar from "@/components/common/tabbar.vue";
 	import { homeUrl } from "@/constants/url.js";
 	import { getJsonData } from "@/core/api.js";
 	import { homeCategory } from "@/constants/app.js"
@@ -44,7 +46,8 @@
 			},
 		},
 		components: {
-			comHead
+			comHead,
+			tabBar
 		},
 		onPullDownRefresh() {
 			getJsonData(homeUrl.video).then(resp => {

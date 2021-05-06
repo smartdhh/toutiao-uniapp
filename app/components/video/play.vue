@@ -1,6 +1,6 @@
 <template>
 	<view class="videoplay">
-		<video :poster="poster" :src="sources[0]" playsinline="true" webkit-playsinline="true" x5-playsinline="true" tabindex="2" mediatype="video">
+		<video :poster="poster" :src="sources[0]" controls>
 		</video>
 	</view>
 </template>
@@ -12,7 +12,7 @@
 		data() {
 			return {
 				poster: '',
-				sources: []
+				sources: ['http://182.92.160.137/other/media/1.mp4']
 			};
 		},
 		filters: {},
@@ -36,6 +36,7 @@
 	.videoplay {
 		width: 100%;
 		height: 450upx;
+
 		video {
 			width: 100%;
 			height: 100%;

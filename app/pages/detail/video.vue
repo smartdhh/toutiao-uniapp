@@ -9,7 +9,7 @@
 			</view>
 		</view>
 		<view class="videomain page-videomain">
-			<video-play :videoid="info.video_id"></video-play>
+			<video-play :videoid="info.video_id" :poster="info.poster_url"></video-play>
 			<com-avatar classname="videoavatar" :info="{media_avatar_url:info.media_user.avatar_url,source:info.source,publish_time:info.publish_time}"></com-avatar>
 		</view>
 		<view class="title">{{info.title}}</view>

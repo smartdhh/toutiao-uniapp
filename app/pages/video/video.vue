@@ -4,12 +4,14 @@
 		<view class="page video-page">
 			<com-video v-for="item,index in movieList" :info="item" :key="index"></com-video>
 		</view>
+		<tab-bar activeKey="video"></tab-bar>
 	</view>
 </template>
 
 <script>
 	import comHead from "@/components/common/head.vue";
 	import comVideo from "@/components/video/com.vue";
+	import tabBar from "@/components/common/tabbar.vue";
 	import { videoUrl } from "@/constants/url.js";
 	import { getJsonData } from "@/core/api.js";
 	import { videoCategory } from "@/constants/app.js";
@@ -24,6 +26,7 @@
 		},
 		components: {
 			comHead,
+			tabBar,
 			comVideo
 		},
 		onPullDownRefresh() {

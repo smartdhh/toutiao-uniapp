@@ -38,3 +38,11 @@ export const videoCategory = [
 
 // 查找页面中的存放本地用户查找信息的key
 export const SEARCH_LOCAL_KEY = 'search-local-key';
+
+// tabbar的数据信息
+export const tabbarData = [
+	{ key: 'home', name: '首页' },
+	{ key: 'video', name: '西瓜视频' },
+	{ key: 'movie', name: '放映厅' },
+	{ key: 'user', name: '我的' },
+];

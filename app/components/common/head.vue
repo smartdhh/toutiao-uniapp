@@ -1,11 +1,11 @@
 <template>
 	<view class="comhead">
-		<view class="search page-header" @tap="onSwitchSearch">
-			<view class="search-content">
+		<view class="search page-header">
+			<view class="search-content" @tap="onSwitchSearch">
 				<view class="iconfont iconsearch"></view>
 				<view>房贷多长时间能批下来</view>
 			</view>
-			<view class="publish">
+			<view class="publish" @click="open">
 				<view class="iconfont iconadd"></view>
 				<view class="name">发布</view>
 			</view>
@@ -13,12 +13,21 @@
 		<view class="category">
 			<view v-for="item,index in category" :class="{active:index===currentIndex}" :key="index" @click="onSwitchCategory(item,index)">{{item.name}}</view>
 		</view>
+		<uni-popup ref="popup" type="bottom" background-color="#fff" height="400upx">
+			<view>boottsdfsdfsdlfk</view>
+			<view>boottsdfsdfsdlfk</view>
+			<view>boottsdfsdfsdlfk</view>
+			<view>boottsdfsdfsdlfk</view>
+			<view>boottsdfsdfsdlfk</view>
+			<view>boottsdfsdfsdlfk</view>
+			<view>boottsdfsdfsdlfk</view>
+			<button @click="close">关闭</button>
+		</uni-popup>
 	</view>
 </template>
 <script>
 	import { category as defaultCategory } from "@/constants/app.js"
 	export default {
-		name: "comHead",
 		props: { category: { default: () => defaultCategory }, defaultIndex: { default: 0 } },
 		data() {
 			return {
@@ -34,6 +43,12 @@
 				uni.navigateTo({
 					url: '/pages/search/search'
 				})
+			},
+			open() {
+				this.$refs.popup.open()
+			},
+			close() {
+				this.$refs.popup.close()
 			}
 		}
 	}
@@ -49,7 +64,7 @@
 		left: 0;
 		z-index: 20;
 
-		.page-header{
+		.page-header {
 			position: static;
 		}
 

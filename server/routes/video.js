@@ -18,7 +18,7 @@ module.exports = [{
 	http: {
 		getSendData: async (req, res, next) => {
 			// 真实数据暂无法获取，使用模拟数据
-			let videoid = 'v02004g10000c1pucp2qgeu76jg4vhc0' || req.query.videoid;
+			let videoid ='v02004g10000c1pucp2qgeu76jg4vhc0' || req.query.videoid;
 			let data = await videoInfoRequest({ videoid });
 			// 视频源报403，暂使用模拟数据
 			data.data.video_list = {

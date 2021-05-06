@@ -13,10 +13,12 @@
 				<com-msg v-else :info="item"></com-msg>
 			</template>
 		</view>
+		<tab-bar activeKey="home"></tab-bar>
 	</view>
 </template>
 <script>
 	import comHead from "@/components/common/head.vue";
+	import tabBar from "@/components/common/tabbar.vue";
 	import adMsg from "@/components/message/ad.vue";
 	import hotMsg from "@/components/message/hot.vue";
 	import imgMsg from "@/components/message/img.vue";
@@ -41,7 +43,8 @@
 			imgMsg,
 			comMsg,
 			avatarMsg,
-			videoMsg
+			videoMsg,
+			tabBar
 		},
 		onPullDownRefresh() {
 			this.onGetPageData(true)
@@ -51,6 +54,7 @@
 		},
 		onLoad() {
 			uni.startPullDownRefresh()
+			uni.hideTabBar();
 		},
 		mounted() {
 			this.onGetPageData(true)
